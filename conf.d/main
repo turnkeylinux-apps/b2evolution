@@ -68,6 +68,10 @@ $CURL "${URL}?locale=en-US-utf8&action=newdb&create_sample_contents=1"
 rm -rf $WEBROOT/install
 rm -f /tmp/cookie
 
+# remove admin email from config (used only during installation)
+CONF=$WEBROOT/conf/_basic_config.php
+sed -i '/admin_email/d' $CONF
+
 # stop services
 /etc/init.d/mysql stop
 /etc/init.d/apache2 stop
