@@ -45,3 +45,8 @@ EOF
 chown www-data:www-data $CONF
 chmod 640 $CONF
 
+# configure apache
+a2dissite default
+a2ensite b2evolution
+a2enmod rewrite
+
