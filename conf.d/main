@@ -11,3 +11,11 @@ ADMIN_MAIL=admin@example.com
 SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
+# unpack and set permissions
+unzip $SRC/b2evolution-*.zip -d $SRC
+mv $SRC/b2evolution/blogs $WEBROOT
+rm -rf $SRC/b2evolution*
+chown -R root:root $WEBROOT
+chown -R www-data:www-data $WEBROOT/media
+chown -R www-data:www-data $WEBROOT/skins/custom
+
