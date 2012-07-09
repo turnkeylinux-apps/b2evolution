@@ -19,3 +19,29 @@ chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
 chown -R www-data:www-data $WEBROOT/skins/custom
 
+# create configuration file
+CONF=$WEBROOT/conf/_basic_config.php
+cat >$CONF<<EOF
+<?php
+if( !defined('EVO_CONFIG_LOADED') ) die( 'Direct access is not supported.' );
+
+\$maintenance_mode = 0;
+\$allow_evodb_reset = 0;
+
+\$db_config = array(
+    'host' => 'localhost',
+    'name' => '$DB_NAME',
+    'user' => '$DB_USER',
+    'password' => '$DB_PASS',
+);
+\$tableprefix = '';
+
+\$baseurl = ( (isset(\$_SERVER['HTTPS']) && ( \$_SERVER['HTTPS'] != 'off' ) ) ?'https://':'http://').\$_SERVER['HTTP_HOST'].'/';
+
+\$admin_email = '$ADMIN_MAIL'; // only used by installer
+\$config_is_done = 1;
+?>
+EOF
+chown www-data:www-data $CONF
+chmod 640 $CONF
+
