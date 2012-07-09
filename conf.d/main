@@ -76,6 +76,9 @@ sed -i '/admin_email/d' $CONF
 MD5_PASS=$(echo -n $ADMIN_PASS | md5sum | cut -d " " -f 1)
 $MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_PASS\" WHERE user_login=\"$ADMIN_NAME\";"
 
+# enable htaccess
+mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
+
 # stop services
 /etc/init.d/mysql stop
 /etc/init.d/apache2 stop
