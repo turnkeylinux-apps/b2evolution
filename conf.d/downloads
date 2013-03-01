@@ -1,0 +1,12 @@
+#!/bin/bash -ex
+
+dl() {
+    [ "$FAB_HTTP_PROXY" ] && PROXY="--proxy $FAB_HTTP_PROXY"
+    cd $2; curl -L -f -O $PROXY $1; cd -
+}
+
+VERSION="b2evo%204.1.6-stable/b2evolution-4.1.6-stable-2012-11-23.zip"
+URL="http://sourceforge.net/projects/evocms/files/b2evolution/$VERSION"
+
+dl $URL /usr/local/src
+
