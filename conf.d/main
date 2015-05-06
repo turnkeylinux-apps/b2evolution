@@ -12,8 +12,8 @@ SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
 # unpack and set permissions
-unzip $SRC/b2evolution-*.zip -d $SRC
-mv $SRC/b2evolution/blogs $WEBROOT
+tar -xvf $SRC/5.2.2.tar.gz -C $SRC
+mv $SRC/b2evolution-5.2.2/blogs $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
