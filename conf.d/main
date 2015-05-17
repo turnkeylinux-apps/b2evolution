@@ -12,12 +12,13 @@ SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
 # unpack and set permissions
-unzip $SRC/b2evolution-*.zip -d $SRC
-mv $SRC/b2evolution/blogs $WEBROOT
+tar -xvf $SRC/5.2.2.tar.gz -C $SRC
+mv $SRC/b2evolution-5.2.2/blogs $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
 chown -R www-data:www-data $WEBROOT/skins/custom
+
 
 # create configuration file
 CONF=$WEBROOT/conf/_basic_config.php
@@ -64,7 +65,10 @@ $MYSQL_BATCH --execute "grant all privileges on $DB_NAME.* to $DB_USER@localhost
 # curl based install
 URL="http://127.0.0.1/install/index.php"
 CURL="curl -c /tmp/cookie -b /tmp/cookie"
-$CURL "${URL}?locale=en-US-utf8&action=newdb&create_sample_contents=1"
+
+$CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&create_sample_contents=1"
+$CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&create_sample_contents=1&htignore=1"
+
 rm -rf $WEBROOT/install
 rm -f /tmp/cookie
 

@@ -5,8 +5,8 @@ dl() {
     cd $2; curl -L -f -O $PROXY $1; cd -
 }
 
-VERSION="b2evo%204.1.6-stable/b2evolution-4.1.6-stable-2012-11-23.zip"
-URL="http://sourceforge.net/projects/evocms/files/b2evolution/$VERSION"
+VERSION="5.2.2"
+URL="https://github.com/b2evolution/b2evolution/archive/$VERSION.tar.gz"
 
 dl $URL /usr/local/src
 
