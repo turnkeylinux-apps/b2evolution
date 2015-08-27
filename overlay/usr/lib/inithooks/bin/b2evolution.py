@@ -9,6 +9,7 @@ Option:
 
 import sys
 import getopt
+import inithooks_cache
 import hashlib
 from uuid import uuid4
 
@@ -56,6 +57,8 @@ def main():
             "b2evolution Email",
             "Enter email address for the b2evolution 'admin' account.",
             "admin@example.com")
+
+    inithooks_cache.write('APP_EMAIL', email)
 
     hash = hashlib.md5(password).hexdigest()
 
