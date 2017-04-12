@@ -12,13 +12,12 @@ SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
 # unpack and set permissions
-tar -xvf $SRC/5.2.2.tar.gz -C $SRC
-mv $SRC/b2evolution-5.2.2/blogs $WEBROOT
+tar -xvf $SRC/6.8.8.tar.gz -C $SRC
+mkdir -p $WEBROOT
+mv $SRC/b2evolution-6.8.8/* $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
-chown -R www-data:www-data $WEBROOT/skins/custom
-
 
 # create configuration file
 CONF=$WEBROOT/conf/_basic_config.php
@@ -46,6 +45,9 @@ EOF
 chown www-data:www-data $CONF
 chmod 640 $CONF
 
+# configure memory limit
+sed -i 's/memory_limit = .*/memory_limit = 48M/' /etc/php5/apache2/php.ini
+
 # configure apache
 a2dissite 000-default
 a2ensite b2evolution
@@ -66,8 +68,7 @@ $MYSQL_BATCH --execute "grant all privileges on $DB_NAME.* to $DB_USER@localhost
 URL="http://127.0.0.1/install/index.php"
 CURL="curl -c /tmp/cookie -b /tmp/cookie"
 
-$CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&create_sample_contents=1"
-$CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&create_sample_contents=1&htignore=1"
+$CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&collections%5B%5D=home&collections%5B%5D=a&collections%5B%5D=b&collections%5B%5D=photos&collections%5B%5D=forums&collections%5B%5D=manual&collections%5B%5D=group&create_sample_organization=0&create_demo_users=0&htignore=1"
 
 rm -rf $WEBROOT/install
 rm -f /tmp/cookie
@@ -77,8 +78,10 @@ CONF=$WEBROOT/conf/_basic_config.php
 sed -i '/admin_email/d' $CONF
 
 # set default password
-MD5_PASS=$(echo -n $ADMIN_PASS | md5sum | cut -d " " -f 1)
-$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_PASS\" WHERE user_login=\"$ADMIN_NAME\";"
+SALT=$(mcookie | head -c 8)
+# takes raw md5 digest (not hex)
+MD5_PASS=$(echo -n "$SALT$ADMIN_PASS" | md5sum | cut -d " " -f 1 | xxd -r -p)
+$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_PASS\", user_salt=\"$SALT\" WHERE user_login=\"$ADMIN_NAME\";"
 
 # enable htaccess
 mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
