@@ -12,9 +12,13 @@ import getopt
 import inithooks_cache
 import hashlib
 from uuid import uuid4
+from random import SystemRandom
+from string import ascii_letters, digits
 
 from dialog_wrapper import Dialog
-from mysqlconf import MySQL
+from mysqlconf import MySQL, escape_chars
+
+random = SystemRandom()
 
 def randomkey():
     return str(uuid4()).replace('-' ,'')
@@ -60,11 +64,13 @@ def main():
 
     inithooks_cache.write('APP_EMAIL', email)
 
-    hash = hashlib.md5(password).hexdigest()
+    salt = ''.join(random.choice(ascii_letters+digits) for i in range(8)) 
+    hash = hashlib.md5(salt+password).digest()
 
     m = MySQL()
-    for username in ('admin', 'ablogger', 'demouser'):
-        m.execute('UPDATE b2evolution.users SET user_pass=\"%s\", user_email=\"%s\", user_unsubscribe_key=\"%s\" WHERE user_login=\"%s\";' % (hash, email, randomkey(), username))
+    username = 'admin'
+    m.execute('UPDATE b2evolution.users SET user_pass=\"%s\", user_email=\"%s\", user_unsubscribe_key=\"%s\", user_salt=\"%s\" WHERE user_login=\"%s\";' % \
+	(escape_chars(hash), email, randomkey(), salt, username))
 
 
 if __name__ == "__main__":
