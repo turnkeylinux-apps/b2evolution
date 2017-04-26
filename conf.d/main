@@ -80,8 +80,8 @@ sed -i '/admin_email/d' $CONF
 # set default password
 SALT=$(mcookie | head -c 8)
 # takes raw md5 digest (not hex)
-MD5_PASS=$(echo -n "$SALT$ADMIN_PASS" | md5sum | cut -d " " -f 1 | xxd -r -p)
-$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_PASS\", user_salt=\"$SALT\" WHERE user_login=\"$ADMIN_NAME\";"
+MD5_SUM=$(echo -n "$SALT$ADMIN_PASS" | md5sum | cut -d " " -f 1)
+$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=unhex(\"$MD5_SUM\"), user_salt=\"$SALT\" WHERE user_login=\"$ADMIN_NAME\";"
 
 # enable htaccess
 mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
