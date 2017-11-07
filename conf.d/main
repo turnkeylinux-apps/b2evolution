@@ -46,7 +46,7 @@ chown www-data:www-data $CONF
 chmod 640 $CONF
 
 # configure memory limit
-sed -i 's/memory_limit = .*/memory_limit = 48M/' /etc/php5/apache2/php.ini
+sed -i 's/memory_limit = .*/memory_limit = 48M/' /etc/php/7.0/apache2/php.ini
 
 # configure apache
 a2dissite 000-default
@@ -55,7 +55,7 @@ a2enmod rewrite
 
 # start services
 /etc/init.d/mysql start
-/etc/init.d/apache2 start
+service apache2 start
 
 # setup the database
 MYSQL_BATCH="mysql --user=root --password=$MYSQL_PASS --batch"
@@ -88,5 +88,5 @@ mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
 
 # stop services
 /etc/init.d/mysql stop
-/etc/init.d/apache2 stop
+service apache2 stop
 
