@@ -11,10 +11,12 @@ ADMIN_MAIL=admin@example.com
 SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
+VERSION=6.9.3
+
 # unpack and set permissions
-tar -xvf $SRC/6.8.8.tar.gz -C $SRC
+tar -xvf $SRC/${VERSION}.tar.gz -C $SRC
 mkdir -p $WEBROOT
-mv $SRC/b2evolution-6.8.8/* $WEBROOT
+mv $SRC/b2evolution-$VERSION/* $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
@@ -81,7 +83,7 @@ sed -i '/admin_email/d' $CONF
 SALT=$(mcookie | head -c 8)
 # takes raw md5 digest (not hex)
 MD5_SUM=$(echo -n "$SALT$ADMIN_PASS" | md5sum | cut -d " " -f 1)
-$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=unhex(\"$MD5_SUM\"), user_salt=\"$SALT\" WHERE user_login=\"$ADMIN_NAME\";"
+$MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_SUM\", user_salt=\"$SALT\" WHERE user_login=\"$ADMIN_NAME\";"
 
 # enable htaccess
 mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
