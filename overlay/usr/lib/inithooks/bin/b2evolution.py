@@ -65,7 +65,7 @@ def main():
     inithooks_cache.write('APP_EMAIL', email)
 
     salt = ''.join(random.choice(ascii_letters+digits) for i in range(8)) 
-    hash = hashlib.md5(salt+password).digest()
+    hash = hashlib.md5(salt+password).hexdigest()
 
     m = MySQL()
     username = 'admin'
