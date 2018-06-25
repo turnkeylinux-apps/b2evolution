@@ -1,6 +1,6 @@
 turnkey-b2evolution-15.0 (1) turnkey; urgency=low
 
-  * Updated b2evolution to 6.9.3
+  * Updated b2evolution to 6.10.2
 
   * Install Adminer directly from stretch/main repo
 
@@ -9,7 +9,7 @@ turnkey-b2evolution-15.0 (1) turnkey; urgency=low
   * Note: Please refer to turnkey-core's changelog for changes common to all
     appliances. Here we only describe changes specific to this appliance.
 
- -- Stefan Davis <stefan@turnkeylinux.org>  Thu, 09 Nov 2017 22:12:11 +1100
+ -- Stefan Davis <stefan@turnkeylinux.org>  Mon, 25 Jun 2018 11:21:28 +1100
 
 turnkey-b2evolution-14.2 (1) turnkey; urgency=low
 
