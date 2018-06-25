@@ -5,7 +5,7 @@ dl() {
     cd $2; curl -L -f -O $PROXY $1; cd -
 }
 
-VERSION="6.9.3"
+VERSION="6.10.2"
 URL="https://github.com/b2evolution/b2evolution/archive/$VERSION.tar.gz"
 
 dl $URL /usr/local/src

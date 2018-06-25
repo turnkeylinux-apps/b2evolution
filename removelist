@@ -1,2 +1,0 @@
-#redirects service calls to services that cannot run inside a chroot
-/usr/local/bin/service
