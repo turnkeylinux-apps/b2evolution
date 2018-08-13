@@ -13,6 +13,10 @@ and on top of that:
    
    - Installed from upstream source code to /var/www/b2evolution
 
+     **Security note**: Updates to b2evolution may require supervision so
+     they **ARE NOT** configured to install automatically. See `b2evolution
+     documentation`_ for upgrading.
+
 - SSL support out of the box.
 - `Adminer`_ administration frontend for MySQL (listening on port
   12322 - uses SSL).
@@ -30,4 +34,5 @@ Credentials *(passwords set at first boot)*
 
 .. _b2evolution: http://b2evolution.net/
 .. _TurnKey Core: https://www.turnkeylinux.org/core
-.. _Adminer: http://www.adminer.org/
+.. _b2evolution documentation: http://b2evolution.net/man/upgrade-instructions
+.. _Adminer: https://www.adminer.org/
