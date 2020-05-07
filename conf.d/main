@@ -11,12 +11,10 @@ ADMIN_MAIL=admin@example.com
 SRC=/usr/local/src
 WEBROOT=/var/www/b2evolution
 
-VERSION=6.11.5
-
 # unpack and set permissions
-tar -xvf $SRC/${VERSION}.tar.gz -C $SRC
+tar -xvf $SRC/b2evolution.tar.gz -C $SRC
 mkdir -p $WEBROOT
-mv $SRC/b2evolution-$VERSION/* $WEBROOT
+mv $SRC/b2evolution-*/* $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
 chown -R www-data:www-data $WEBROOT/media
