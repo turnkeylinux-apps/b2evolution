@@ -1,3 +1,12 @@
+turnkey-b2evolution-16.1 (1) turnkey; urgency=low
+
+  * Updated b2evolution to latet stable LTS version: 7.2.2.
+
+  * Note: Please refer to turnkey-core's 16.1 changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Stefan Davis <stefan@turnkeylinux.org>  Tue, 02 Feb 2021 20:29:52 +0000
+
 turnkey-b2evolution-16.0 (1) turnkey; urgency=low
 
   * Updated b2evolution to latest stable LTS version - 6.11.6.
@@ -16,7 +25,7 @@ turnkey-b2evolution-16.0 (1) turnkey; urgency=low
   * Updated version of mysqltuner script - now installed as per upstream
     recommendation.
 
-  * Note: Please refer to turnkey-core's changelog for changes common to all
+  * Note: Please refer to turnkey-core's 16.1 changelog for changes common to all
     appliances. Here we only describe changes specific to this appliance.
 
  -- Jeremy Davis <jeremy@turnkeylinux.org>  Wed, 06 May 2020 15:41:37 +1000
