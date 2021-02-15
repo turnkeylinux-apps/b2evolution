@@ -4,8 +4,8 @@
 php-gd
 php-cli
 php-curl
-php7.3-imap
+php-imap
 php-xml
+php-mbstring
 
 unzip
-
