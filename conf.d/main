@@ -17,7 +17,7 @@ mkdir -p $WEBROOT
 mv $SRC/b2evolution-*/* $WEBROOT
 rm -rf $SRC/b2evolution*
 chown -R root:root $WEBROOT
-chown -R www-data:www-data $WEBROOT/media
+chown -R www-data:www-data $WEBROOT/media $WEBROOT/_cache
 
 # create configuration file
 CONF=$WEBROOT/conf/_basic_config.php
