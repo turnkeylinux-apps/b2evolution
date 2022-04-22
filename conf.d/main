@@ -46,7 +46,7 @@ chown www-data:www-data $CONF
 chmod 640 $CONF
 
 # configure memory limit
-sed -i 's/memory_limit = .*/memory_limit = 48M/' /etc/php/7.3/apache2/php.ini
+sed -i 's/memory_limit = .*/memory_limit = 48M/' /etc/php/*/apache2/php.ini
 
 # configure apache
 a2dissite 000-default
