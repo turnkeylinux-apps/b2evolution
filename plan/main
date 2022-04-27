@@ -7,5 +7,6 @@ php-curl
 php-imap
 php-xml
 php-mbstring
+php-zip
 
 unzip
