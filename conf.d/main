@@ -54,7 +54,7 @@ a2ensite b2evolution
 a2enmod rewrite
 
 # start services
-/etc/init.d/mysql start
+service mysql start
 service apache2 start
 
 # setup the database
@@ -73,6 +73,11 @@ $CURL "${URL}?locale=en-US&confirmed=0&installer_version=10&action=newdb&collect
 rm -rf $WEBROOT/install
 rm -f /tmp/cookie
 
+hta_files=$(find -type f -name sample.htaccess)
+for hta_file in $hta_files; do
+    cp $hta_file $(dirname $hta_file)/.htaccess
+done
+
 # remove admin email from config (used only during installation)
 CONF=$WEBROOT/conf/_basic_config.php
 sed -i '/admin_email/d' $CONF
@@ -87,6 +92,5 @@ $MYSQL_BATCH --execute "UPDATE $DB_NAME.users SET user_pass=\"$MD5_SUM\", user_s
 mv $WEBROOT/sample.htaccess $WEBROOT/.htaccess
 
 # stop services
-/etc/init.d/mysql stop
+service mysql stop
 service apache2 stop
-
